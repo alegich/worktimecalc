@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "timecalc", ".\timecalc\timecalc.csproj", "{CB441BE3-2BEF-44EA-873C-89B78E6F99CA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "timecalclib", ".\timecalclib\timecalclib.csproj", "{202AEDDC-6A17-40D7-9B63-497980CCA2FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "timecalcout", ".\timecalcout\timecalcout.csproj", "{F1FA89A0-594A-4270-814F-A4377CC2FC4E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "timecalctray", ".\timecalctray\timecalctray.csproj", "{990E267C-F294-4E22-B810-84278F9DEEFE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CB441BE3-2BEF-44EA-873C-89B78E6F99CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB441BE3-2BEF-44EA-873C-89B78E6F99CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB441BE3-2BEF-44EA-873C-89B78E6F99CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB441BE3-2BEF-44EA-873C-89B78E6F99CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{202AEDDC-6A17-40D7-9B63-497980CCA2FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{202AEDDC-6A17-40D7-9B63-497980CCA2FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{202AEDDC-6A17-40D7-9B63-497980CCA2FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{202AEDDC-6A17-40D7-9B63-497980CCA2FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1FA89A0-594A-4270-814F-A4377CC2FC4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1FA89A0-594A-4270-814F-A4377CC2FC4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1FA89A0-594A-4270-814F-A4377CC2FC4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1FA89A0-594A-4270-814F-A4377CC2FC4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{990E267C-F294-4E22-B810-84278F9DEEFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{990E267C-F294-4E22-B810-84278F9DEEFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{990E267C-F294-4E22-B810-84278F9DEEFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{990E267C-F294-4E22-B810-84278F9DEEFE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
