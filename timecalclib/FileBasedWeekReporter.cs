@@ -24,9 +24,9 @@ namespace timecalclib
          return week.TimeLeft();
       }
 
-      public TimeSpan WholeWeekTime()
+      public TimeSpan TodaysBalance()
       {
-         throw new NotImplementedException();
+         return week.TodaysBalance();
       }
 
       protected DateTime StartOfWeek(DateTime dt)

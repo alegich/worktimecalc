@@ -82,12 +82,19 @@ namespace timecalctray
          return day.AwayDuration();
       }
 
+      TimeSpan GetWeeksBalance()
+      {
+         FileBasedWeekReporter week = new FileBasedWeekReporter(DateTime.Now.Date, folder);
+         return week.TodaysBalance();
+      }
+
       string GetTimeOutput()
       {
          TimeSpan timeLeft = TimeLeft();
-         return "Time Left " + timeLeft.ToString(@"hh\:mm\:ss") + 
-            "\nLeave at " + (DateTime.Now + timeLeft).ToShortTimeString() + 
-            "\nAway " + TodaysAway().ToString(@"hh\:mm\:ss");
+         return "Left " + timeLeft.ToString(@"hh\:mm\:ss") +
+            "\nLeave " + (DateTime.Now + timeLeft).ToShortTimeString() +
+            "\nAway " + TodaysAway().ToString(@"hh\:mm\:ss") +
+            "\nBalance " + GetWeeksBalance();
       }
 
       void UpdateHint(object sender, MouseEventArgs e)

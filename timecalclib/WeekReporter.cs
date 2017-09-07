@@ -12,9 +12,20 @@ namespace timecalclib
          this.records = records;
       }
 
-      public TimeSpan WholeWeekTime()
+      public TimeSpan TodaysBalance()
       {
-         throw new NotImplementedException();
+         TimeSpan retVal = new TimeSpan();
+         int count = 0;
+         foreach (Reportable item in records)
+         {
+            if (item.WorkStarted().Date != DateTime.Now.Date)
+            {
+               retVal += item.WholeDayTime();
+               ++count;
+            }
+         }
+
+         return retVal - new TimeSpan(count * 8, 0, 0);
       }
 
       public TimeSpan TimeLeft()

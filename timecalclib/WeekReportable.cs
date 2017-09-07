@@ -7,7 +7,7 @@ namespace timecalclib
 {
    public interface WeekReportable
    {
-      TimeSpan WholeWeekTime();
+      TimeSpan TodaysBalance();
       TimeSpan TimeLeft();
    }
 }
