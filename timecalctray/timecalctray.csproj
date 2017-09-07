@@ -85,7 +85,7 @@
     <None Include="Resources\AppIcon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\timecalclib\timecalclib.csproj">
+    <ProjectReference Include="..\timecalclib\timecalclib.csproj">
       <Project>{202AEDDC-6A17-40D7-9B63-497980CCA2FE}</Project>
       <Name>timecalclib</Name>
     </ProjectReference>

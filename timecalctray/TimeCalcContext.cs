@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,12 +18,14 @@ namespace timecalctray
 
       public TimeCalcContext()
       {
+         MenuItem hibernateMenuItem = new MenuItem("Hibernate", new EventHandler(HibernateSystem));
          MenuItem exitMenuItem = new MenuItem("Exit", new EventHandler(Exit));
          notifyIcon.Icon = timecalctray.Properties.Resources.AppIcon;
-         notifyIcon.ContextMenu = new ContextMenu(new MenuItem[] { exitMenuItem });
+         notifyIcon.ContextMenu = new ContextMenu(new MenuItem[] { exitMenuItem, hibernateMenuItem });
          notifyIcon.MouseClick += new MouseEventHandler(ShowTime);
          notifyIcon.MouseMove += new MouseEventHandler(UpdateHint);
          notifyIcon.Visible = true;
+         
 
          timer.Elapsed += new ElapsedEventHandler(OnTimerEvent);
          timer.Interval = 30000;
@@ -105,6 +108,11 @@ namespace timecalctray
          notifyIcon.Visible = false;
 
          Application.Exit();
+      }
+
+      void HibernateSystem(object sender, EventArgs e)
+      {
+         Process.Start(@"cmd.exe", @"/C shutdown /h /f");
       }
    }
 }
