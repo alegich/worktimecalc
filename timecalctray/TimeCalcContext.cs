@@ -15,13 +15,17 @@ namespace timecalctray
       NotifyIcon notifyIcon = new NotifyIcon();
       System.Timers.Timer timer = new System.Timers.Timer();
       int warningLevel = 0;
+      MenuItem overtimeItem;
 
       public TimeCalcContext()
       {
          MenuItem hibernateMenuItem = new MenuItem("Hibernate", new EventHandler(HibernateSystem));
          MenuItem exitMenuItem = new MenuItem("Exit", new EventHandler(Exit));
+         overtimeItem = new MenuItem("Work for 10 minutes", new EventHandler(Overtime));
+         overtimeItem.Visible = false;
+
          notifyIcon.Icon = timecalctray.Properties.Resources.AppIcon;
-         notifyIcon.ContextMenu = new ContextMenu(new MenuItem[] { exitMenuItem, hibernateMenuItem });
+         notifyIcon.ContextMenu = new ContextMenu(new MenuItem[] { exitMenuItem, hibernateMenuItem, overtimeItem });
          notifyIcon.MouseClick += new MouseEventHandler(ShowTime);
          notifyIcon.MouseMove += new MouseEventHandler(UpdateHint);
          notifyIcon.Visible = true;
@@ -50,6 +54,7 @@ namespace timecalctray
          if (timeLeft <= (new TimeSpan()))
          {
             notifyIcon.ShowBalloonTip(3000, "Are you still here?", timeLeftFormatted, ToolTipIcon.Error);
+            overtimeItem.Visible = true;
          }
          else if (warningLevel == 1 && timeLeft <= (new TimeSpan(0, 5, 0)))
          {
@@ -65,6 +70,8 @@ namespace timecalctray
          {
             warningLevel = 0;
          }
+
+         timer.Interval = 30000;
       }
 
       string folder = @"D:\data\docs\time";
@@ -120,6 +127,12 @@ namespace timecalctray
       void HibernateSystem(object sender, EventArgs e)
       {
          Process.Start(@"cmd.exe", @"/C shutdown /h /f");
+      }
+
+      void Overtime(object sender, EventArgs e)
+      {
+         overtimeItem.Visible = false;
+         timer.Interval = 600000;
       }
    }
 }
