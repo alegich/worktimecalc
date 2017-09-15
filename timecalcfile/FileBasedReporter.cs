@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using timecalclib;
 
-namespace timecalclib
+namespace timecalcfile
 {
    public class FileBasedReporter: TimeReporter
    {

@@ -7,9 +7,26 @@ using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
 using timecalclib;
+using System.Reflection;
+using timecalcfile;
 
 namespace timecalctray
 {
+
+   public class Fixes
+   {
+      public static void SetNotifyIconText(NotifyIcon ni, string text)
+      {
+         //if (text.Length >= 128) throw new ArgumentOutOfRangeException("Text limited to 127 characters");
+         Type t = typeof(NotifyIcon);
+         BindingFlags hidden = BindingFlags.NonPublic | BindingFlags.Instance;
+         t.GetField("text", hidden).SetValue(ni, text);
+         if ((bool)t.GetField("added", hidden).GetValue(ni))
+            t.GetMethod("UpdateIcon", hidden).Invoke(ni, new object[] { true });
+      }
+   }
+
+
    public class TimeCalcContext : ApplicationContext
    {
       NotifyIcon notifyIcon = new NotifyIcon();
@@ -85,7 +102,7 @@ namespace timecalctray
 
       TimeSpan TodaysAway()
       {
-         FileBasedReporter day = new FileBasedReporter(folder, DateTime.Now.Date);
+         Reportable day = new FileBasedReporter(folder, DateTime.Now.Date);
          return day.AwayDuration();
       }
 
@@ -106,7 +123,8 @@ namespace timecalctray
 
       void UpdateHint(object sender, MouseEventArgs e)
       {
-         notifyIcon.Text = GetTimeOutput();
+         //notifyIcon.Text = GetTimeOutput();
+         Fixes.SetNotifyIconText(notifyIcon, GetTimeOutput());
       }
 
       void ShowTime(object sender, MouseEventArgs e)

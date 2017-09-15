@@ -1,7 +1,8 @@
 ﻿using System;
 using System.IO;
+using timecalclib;
 
-namespace timecalclib
+namespace timecalcfile
 {
    public class FileWriter: Writable
    {
@@ -11,22 +12,22 @@ namespace timecalclib
       }
       public void WriteStart(DateTime time)
       {
-         File.AppendAllText(GetTodaysFile(), FormatLine(time, Action.Start));
+         File.AppendAllText(GetTodaysFile(), FormatLine(time, timecalclib.Action.Start));
       }
 
       public void WriteStop(DateTime time)
       {
-         File.AppendAllText(GetTodaysFile(), FormatLine(time, Action.Stop));
+         File.AppendAllText(GetTodaysFile(), FormatLine(time, timecalclib.Action.Stop));
       }
 
       public void WriteLock(DateTime time)
       {
-         File.AppendAllText(GetTodaysFile(), FormatLine(time, Action.Lock));
+         File.AppendAllText(GetTodaysFile(), FormatLine(time, timecalclib.Action.Lock));
       }
 
       public void WriteUnlock(DateTime time)
       {
-         File.AppendAllText(GetTodaysFile(), FormatLine(time, Action.Unlock));
+         File.AppendAllText(GetTodaysFile(), FormatLine(time, timecalclib.Action.Unlock));
       }
 
       protected string GetTodaysFile()

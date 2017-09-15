@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using timecalclib;
 
-namespace timecalclib
+namespace timecalcfile
 {
    public class FileBasedWeekReporter : WeekReportable
    {

@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
+using timecalcfile;
 using timecalclib;
 
 namespace timecalcout
@@ -18,7 +15,7 @@ namespace timecalcout
 
          string folder = @"D:\data\docs\time";
 
-         FileBasedReporter reporter = new FileBasedReporter(folder, date);
+         Reportable reporter = new FileBasedReporter(folder, date);
          Console.WriteLine("Work started: {0}", reporter.WorkStarted().ToLocalTime());
          Console.WriteLine("Work ended: {0}", reporter.WorkEnded().ToLocalTime());
          foreach (var timePair in reporter.AwaySessions())
