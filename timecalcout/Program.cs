@@ -6,16 +6,12 @@ namespace timecalcout
 {
    class Program
    {
-
-
-
       static void Main(string[] args)
       {
          DateTime date = args.Length > 0 ? (new DataFormatter()).ParseDate(args[0]) : DateTime.Now.Date;
 
-         string folder = @"D:\data\docs\time";
-
-         Reportable reporter = new FileBasedReporter(folder, date);
+         timecalcfile.TimeCalcFactory factory = new timecalcfile.TimeCalcFactory();
+         Reportable reporter = factory.CreateReporter(date);
          Console.WriteLine("Work started: {0}", reporter.WorkStarted().ToLocalTime());
          Console.WriteLine("Work ended: {0}", reporter.WorkEnded().ToLocalTime());
          foreach (var timePair in reporter.AwaySessions())
@@ -26,7 +22,7 @@ namespace timecalcout
          Console.WriteLine("Work time: {0}", reporter.WorkDuration());
          Console.WriteLine("Away time: {0}", reporter.AwayDuration());
 
-         FileBasedWeekReporter week = new FileBasedWeekReporter(date, folder);
+         WeekReportable week = factory.CreateWeekReporter(date);
 
          Console.WriteLine("Time left: {0}", week.TimeLeft());
 

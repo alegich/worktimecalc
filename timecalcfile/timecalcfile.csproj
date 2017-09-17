@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="FileBasedReporter.cs" />
     <Compile Include="FileBasedWeekReporter.cs" />
+    <Compile Include="TimeCalcFactory.cs" />
     <Compile Include="FileWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

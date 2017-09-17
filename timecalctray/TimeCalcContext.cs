@@ -33,6 +33,7 @@ namespace timecalctray
       System.Timers.Timer timer = new System.Timers.Timer();
       int warningLevel = 0;
       MenuItem overtimeItem;
+      timecalcfile.TimeCalcFactory factory = new timecalcfile.TimeCalcFactory();
 
       public TimeCalcContext()
       {
@@ -91,24 +92,21 @@ namespace timecalctray
          timer.Interval = 30000;
       }
 
-      string folder = @"D:\data\docs\time";
-
       TimeSpan TimeLeft()
       {
-         
-         FileBasedWeekReporter week = new FileBasedWeekReporter(DateTime.Now.Date, folder);
+         WeekReportable week = factory.CreateWeekReporter(DateTime.Now.Date);
          return week.TimeLeft();
       }
 
       TimeSpan TodaysAway()
       {
-         Reportable day = new FileBasedReporter(folder, DateTime.Now.Date);
+         Reportable day = factory.CreateReporter(DateTime.Now.Date);
          return day.AwayDuration();
       }
 
       TimeSpan GetWeeksBalance()
       {
-         FileBasedWeekReporter week = new FileBasedWeekReporter(DateTime.Now.Date, folder);
+         WeekReportable week = factory.CreateWeekReporter(DateTime.Now.Date);
          return week.TodaysBalance();
       }
 

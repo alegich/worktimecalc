@@ -17,7 +17,9 @@ namespace timecalc
       {
          InitializeComponent();
 
-         measurer = new TimeMeasurer(new FileWriter(dataFolder));
+            timecalcfile.TimeCalcFactory factory = new timecalcfile.TimeCalcFactory();
+
+         measurer = new TimeMeasurer(factory.CreateWriter());
       }
 
       protected override void OnStart(string[] args)
@@ -57,8 +59,6 @@ namespace timecalc
          }
          return base.OnPowerEvent(powerStatus);
       }
-
-      private readonly string dataFolder = @"D:\data\docs\time";
 
       private readonly Measurable measurer;
 
