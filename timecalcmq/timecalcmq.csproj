@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Apache.NMS">
+      <HintPath>3rdparty\Apache.NMS.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -42,6 +45,7 @@
   <ItemGroup>
     <Compile Include="TimeCalcFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Writer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\timecalclib\timecalclib.csproj">

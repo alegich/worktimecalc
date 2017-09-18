@@ -21,7 +21,7 @@ namespace timecalcmq
 
       public Writable CreateWriter()
       {
-         throw new NotImplementedException();
+         return new Writer();
       }
    }
 }
