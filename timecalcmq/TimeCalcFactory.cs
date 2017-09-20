@@ -9,6 +9,13 @@ namespace timecalcmq
 {
    public class TimeCalcFactory : timecalclib.TimeCalcFactory
    {
+      private readonly QueueCommunicator queueCommunicator;
+
+      public TimeCalcFactory()
+      {
+         queueCommunicator = new QueueCommunicator();
+      }
+
       public Reportable CreateReporter(DateTime day)
       {
          throw new NotImplementedException();
@@ -21,7 +28,7 @@ namespace timecalcmq
 
       public Writable CreateWriter()
       {
-         return new Writer();
+         return new Writer(queueCommunicator.GetQueueWriter());
       }
    }
 }
