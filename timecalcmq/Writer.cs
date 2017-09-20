@@ -1,29 +1,46 @@
 ﻿using System;
+using Apache.NMS;
 
 namespace timecalcmq
 {
-   class Writer : timecalclib.Writable
+   class Writer : timecalclib.Writable, IDisposable
    {
-      private Apache.NMS.IConnection connection;
+      private IConnection connection;
+
+      private readonly string queueName = "queue://timecalc.write";
+
+      private readonly string brokerUri = "activemq:failover:(tcp://localhost:5672)";
 
       private void SendActionMessage(string actionType, DateTime actionTime)
       {
-         Apache.NMS.ISession session = connection.CreateSession(Apache.NMS.AcknowledgementMode.AutoAcknowledge);
-         Apache.NMS.IMessageProducer producer = session.CreateProducer();
+         using (ISession session = connection.CreateSession(AcknowledgementMode.AutoAcknowledge))
+         {
+            IQueue queue = Apache.NMS.Util.SessionUtil.GetQueue(session, queueName);
 
-         Apache.NMS.ITextMessage message = producer.CreateTextMessage();
-         message.Properties.SetLong("actionTime", actionTime.Ticks);
-         message.Properties.SetString("actionType", actionType);
+            IMessageProducer producer = session.CreateProducer(queue);
 
-         producer.Send(message);
+            ITextMessage message = producer.CreateTextMessage();
+            message.Properties.SetLong("actionTime", actionTime.Ticks);
+            message.Properties.SetString("actionType", actionType);
 
-         session.Close();
+            producer.Send(message);
+
+            session.Close();
+         }
       }
 
       public Writer()
       {
-         Apache.NMS.IConnectionFactory factory = new Apache.NMS.NMSConnectionFactory("", null);
-         connection = factory.CreateConnection();
+         try
+         {
+            IConnectionFactory factory = new NMSConnectionFactory(brokerUri);
+            connection = factory.CreateConnection();
+         }
+         catch (Exception)
+         {
+            CleanUp();
+            throw;
+         }
       }
 
       public void WriteLock(DateTime time)
@@ -44,6 +61,16 @@ namespace timecalcmq
       public void WriteUnlock(DateTime time)
       {
          SendActionMessage(timecalclib.Action.Unlock, time);
+      }
+
+      private void CleanUp()
+      {
+         connection.Dispose();
+      }
+
+      public void Dispose()
+      {
+         CleanUp();
       }
    }
 }
