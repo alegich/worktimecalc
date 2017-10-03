@@ -26,6 +26,10 @@ namespace timecalcout
 
          Console.WriteLine("Time left: {0}", week.TimeLeft());
 
+         Console.WriteLine("Lunch duration: {0}, started at {1}, ended at {2}", 
+            reporter.LunchDuration(), reporter.LunchStarted().ToLocalTime().ToShortTimeString(), 
+            reporter.LunchEnded().ToLocalTime().ToShortTimeString());
+
          Console.WriteLine("To show information for other day: timecalcout yyyy.MM.dd");
       }
    }

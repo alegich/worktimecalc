@@ -10,14 +10,21 @@ namespace timecalclib
       public TimeSpan WorkDuration()
       {
          TimeSpan wholeDayTime = WholeDayTime();
-         TimeSpan sessionsSum = SessionsSumInterval(AwaySessions());
-         TimeSpan workTime = wholeDayTime.Subtract(sessionsSum);
+         TimeSpan nonWorkingTime = NonWorkingDuration();
+         TimeSpan workTime = wholeDayTime.Subtract(nonWorkingTime);
          return workTime;
       }
 
       public TimeSpan AwayDuration()
       {
          return SessionsSumInterval(AwaySessions());
+      }
+
+      protected TimeSpan NonWorkingDuration()
+      {
+         return
+            SessionsSumInterval(
+               AwaySessions().Where(s => Interval(s) != LunchDuration() && Interval(s) > new TimeSpan(0, 1, 0, 0)).ToList());
       }
 
       public long WorkMillis()
@@ -58,12 +65,12 @@ namespace timecalclib
 
       public DateTime LunchStarted()
       {
-         throw new NotImplementedException();
+         return Lunch().Key;
       }
 
       public DateTime LunchEnded()
       {
-         throw new NotImplementedException();
+         return Lunch().Value;
       }
 
       public List<KeyValuePair<DateTime, DateTime>> AwaySessions()
@@ -117,6 +124,34 @@ namespace timecalclib
       protected List<KeyValuePair<DateTime, string>> GetRecords()
       {
          return records;
+      }
+
+      protected KeyValuePair<DateTime, DateTime> Lunch()
+      {
+         TimeSpan minSpan = TimeSpan.MaxValue;
+         KeyValuePair<DateTime, DateTime> retVal = new KeyValuePair<DateTime, DateTime>(DateTime.MinValue, DateTime.MinValue);
+         foreach (var session in AwaySessions())
+         {
+            TimeSpan interval = Interval(session);
+            TimeSpan currentSpan = interval.Subtract(new TimeSpan(0, 0, 30, 0)).Duration();
+            if (currentSpan < minSpan)
+            {
+               minSpan = currentSpan;
+               retVal = session;
+            }
+         }
+
+         if (Interval(retVal) < new TimeSpan(0, 0, 15, 0) || Interval(retVal) > new TimeSpan(0, 1, 0, 0))
+         {
+            retVal = new KeyValuePair<DateTime, DateTime>(DateTime.MinValue, DateTime.MinValue);
+         }
+
+         return retVal;
+      }
+
+      public TimeSpan LunchDuration()
+      {
+         return Interval(Lunch());
       }
 
       private readonly List<KeyValuePair<DateTime, string>> records = new List<KeyValuePair<DateTime, string>>();

@@ -10,6 +10,7 @@ namespace timecalclib
       TimeSpan WholeDayTime();
       TimeSpan WorkDuration();
       TimeSpan AwayDuration();
+      TimeSpan LunchDuration();
       long WorkMillis();
       long AwayMillis();
       long LunchMillis();

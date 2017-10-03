@@ -18,7 +18,7 @@ namespace timecalclib
          {
             if (item.WorkStarted().Date != DateTime.Now.Date)
             {
-               retVal += item.WholeDayTime();
+               retVal += item.WorkDuration();
                ++count;
             }
          }
@@ -31,7 +31,7 @@ namespace timecalclib
          TimeSpan retVal = new TimeSpan();
          foreach (Reportable item in records)
          {
-            retVal += item.WholeDayTime();
+            retVal += item.WorkDuration();
          }
 
          return new TimeSpan(records.Count * 8, 0, 0) - retVal;

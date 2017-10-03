@@ -13,6 +13,11 @@ namespace timecalcmq
          throw new NotImplementedException();
       }
 
+      public TimeSpan LunchDuration()
+      {
+         throw new NotImplementedException();
+      }
+
       public long AwayMillis()
       {
          throw new NotImplementedException();
