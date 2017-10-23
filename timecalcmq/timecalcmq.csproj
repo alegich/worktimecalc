@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="QueueCommunicator.cs" />
     <Compile Include="QueueReader.cs" />
+    <Compile Include="QueueServer.cs" />
     <Compile Include="QueueWriter.cs" />
     <Compile Include="Reporter.cs" />
     <Compile Include="TimeCalcFactory.cs" />
