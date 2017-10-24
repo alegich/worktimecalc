@@ -3,13 +3,13 @@ using System.Configuration;
 using System.Diagnostics;
 using System.ServiceProcess;
 using System.Threading.Tasks;
-using DHCVCommon.Logging;
+using log4net;
 
 namespace MessageProcessing
 {
    public partial class MessageConsumerService : ServiceBase
    {
-      private static readonly Logger log = Logger.GetLogger(typeof(MessageConsumerService));
+      private static readonly ILog log = LogManager.GetLogger(typeof(MessageConsumerService));
 
       private readonly Config config;
 

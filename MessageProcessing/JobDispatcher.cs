@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using DHCVCommon.Logging;
+using log4net;
 
 namespace MessageProcessing
 {
    public class JobDispatcher
    {
-      private static readonly Logger log = Logger.GetLogger(typeof(JobDispatcher));
+      private static readonly ILog log = LogManager.GetLogger(typeof(JobDispatcher));
 
       private readonly Action commit;
       private List<Task<bool>> jobs = new List<Task<bool>>();

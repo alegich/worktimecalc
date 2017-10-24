@@ -1,13 +1,13 @@
 ﻿using System;
 using Apache.NMS;
 using Apache.NMS.Util;
-using DHCVCommon.Logging;
+using log4net;
 
 namespace MessageProcessing.NMSActiveMQ
 {
    public class NmsTopicSubscriber : ITopicSubscriber
    {
-      private static readonly Logger log = Logger.GetLogger(typeof(NmsTopicSubscriber));
+      private static readonly ILog log = LogManager.GetLogger(typeof(NmsTopicSubscriber));
 
       private readonly IProcessorFactory processorFactory;
       private readonly IConnection connection;

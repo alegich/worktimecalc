@@ -61,7 +61,11 @@ namespace timecalctray
 
       string FormatTimespan(TimeSpan value)
       {
-         return value.ToString(@"hh\:mm\:ss");
+         string format = value.Hours > 0 ? @"{0} h, {1} min" : @"{1} min, {2} sec";
+         format = (value < TimeSpan.Zero ? @"-" : string.Empty) + format;
+         TimeSpan duration = value.Duration();
+         return string.Format(format, duration.Hours, duration.Minutes, duration.Seconds);
+         //return value.ToString(@"hh\:mm\:ss");
       }
 
       private void OnTimerEvent(object sender, ElapsedEventArgs e)
@@ -113,9 +117,9 @@ namespace timecalctray
       string GetTimeOutput()
       {
          TimeSpan timeLeft = TimeLeft();
-         return "Left " + timeLeft.ToString(@"hh\:mm\:ss") +
+         return "Left " + FormatTimespan(timeLeft) +
             "\nLeave " + (DateTime.Now + timeLeft).ToShortTimeString() +
-            "\nAway " + TodaysAway().ToString(@"hh\:mm\:ss") +
+            "\nAway " + FormatTimespan(TodaysAway()) +
             "\nBalance " + GetWeeksBalance();
       }
 

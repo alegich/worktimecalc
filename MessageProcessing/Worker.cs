@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using DHCVCommon.Logging;
+using log4net;
 
 namespace MessageProcessing
 {
    public abstract class Worker
    {
-      private static readonly Logger logger = Logger.GetLogger(typeof(Worker));
+      private static readonly ILog logger = LogManager.GetLogger(typeof(Worker));
 
       private readonly IRequestProcessor processor;
 
@@ -28,7 +28,7 @@ namespace MessageProcessing
             logger.Debug(GetMessageText());
 
             Stopwatch sw = Stopwatch.StartNew();
-            retVal = processor.Process(GetMessageText());
+            retVal = processor.Process(GetMessageText(), GetMessageProperties());
             sw.Stop();
             if (retVal.Result)
             {
@@ -66,5 +66,7 @@ namespace MessageProcessing
       protected abstract string GetMessageText();
 
       protected abstract string GetMessageId();
+
+      protected abstract Dictionary<string, string> GetMessageProperties();
    }
 }

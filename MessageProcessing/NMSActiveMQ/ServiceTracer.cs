@@ -1,5 +1,5 @@
 ﻿using Apache.NMS;
-using DHCVCommon.Logging;
+using log4net;
 
 namespace MessageProcessing.NMSActiveMQ
 {
@@ -7,7 +7,7 @@ namespace MessageProcessing.NMSActiveMQ
     */
    internal class ServiceTracer : ITrace
    {
-      private static readonly Logger log = Logger.GetLogger(typeof(ServiceTracer));
+      private static readonly ILog log = LogManager.GetLogger(typeof(ServiceTracer));
 
       public bool IsDebugEnabled
       {

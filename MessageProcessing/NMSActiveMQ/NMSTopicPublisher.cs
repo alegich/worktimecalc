@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Apache.NMS;
-using DHCVCommon.Logging;
+using log4net;
 
 namespace MessageProcessing.NMSActiveMQ
 {
    class NMSTopicPublisher: ITopicPublisher
    {
-      private static readonly Logger log = Logger.GetLogger(typeof(NMSTopicPublisher));
+      private static readonly ILog log = LogManager.GetLogger(typeof(NMSTopicPublisher));
 
       private readonly ISession session;
       private readonly IMessageProducer producer;

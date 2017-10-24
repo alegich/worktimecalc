@@ -27,5 +27,17 @@ namespace MessageProcessing.NMSActiveMQ
       {
          return message.NMSMessageId;
       }
+
+      protected override Dictionary<string, string> GetMessageProperties()
+      {
+         Dictionary <string, string> retVal = new Dictionary<string, string>();
+
+         foreach (string key in message.Properties.Keys)
+         {
+            retVal.Add(key, message.Properties[key].ToString());
+         }
+
+         return retVal;
+      }
    }
 }
