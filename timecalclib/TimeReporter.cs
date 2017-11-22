@@ -101,7 +101,9 @@ namespace timecalclib
 
          DateTime lastAction = WorkEnded();
 
-         return lastAction.Subtract(firstAction);
+         TimeSpan retVal = lastAction.Subtract(firstAction);
+
+         return retVal != TimeSpan.Zero ? retVal : TimeSpan.FromHours(8);
       }
 
       private TimeSpan Interval(KeyValuePair<DateTime, DateTime> dates)

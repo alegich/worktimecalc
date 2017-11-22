@@ -54,11 +54,6 @@ namespace timecalctray
          timer.Enabled = true;
       }
 
-      private void NotifyIcon_MouseMove(object sender, MouseEventArgs e)
-      {
-         throw new NotImplementedException();
-      }
-
       string FormatTimespan(TimeSpan value)
       {
          string format = value.Hours > 0 ? @"{0} h, {1} min" : @"{1} min, {2} sec";

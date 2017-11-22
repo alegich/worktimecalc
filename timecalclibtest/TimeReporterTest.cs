@@ -34,5 +34,13 @@ namespace timecalclibtest
          Assert.AreEqual(new TimeSpan(0, 8, 0, 0), reporter.WholeDayTime());
          Assert.AreEqual(new TimeSpan(0, 1, 1, 0), reporter.AwayDuration());
       }
+
+      [TestMethod]
+      public void TestDayOff()
+      {
+         TimeReporterSpy reporter = new TimeReporterSpy();
+
+         Assert.AreEqual(new TimeSpan(0, 8, 0, 0), reporter.WholeDayTime());
+      }
    }
 }
