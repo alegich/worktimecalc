@@ -52,6 +52,6 @@ namespace timecalclib
          return records;
       }
 
-      private readonly List<Reportable> records;
+      private readonly List<Reportable> records = new List<Reportable>();
    }
 }
