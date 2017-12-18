@@ -18,7 +18,7 @@ namespace timecalcmq
 
       public Reportable CreateReporter(DateTime day)
       {
-         throw new NotImplementedException();
+         return new MessageBasedReporter(queueCommunicator.GetQueueClient(), day);
       }
 
       public WeekReportable CreateWeekReporter(DateTime date)
@@ -28,7 +28,7 @@ namespace timecalcmq
 
       public Writable CreateWriter()
       {
-         return new Writer(queueCommunicator.GetQueueWriter());
+         return new Writer(queueCommunicator.GetQueueClient());
       }
    }
 }

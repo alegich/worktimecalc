@@ -13,7 +13,6 @@ namespace timecalclib
       TimeSpan LunchDuration();
       long WorkMillis();
       long AwayMillis();
-      long LunchMillis();
       DateTime WorkStarted();
       DateTime WorkEnded();
       DateTime LunchStarted();

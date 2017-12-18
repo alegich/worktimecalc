@@ -4,31 +4,31 @@ namespace timecalcmq
 {
    class Writer : timecalclib.Writable
    {
-      private readonly QueueWriter queueWriter;
+      private readonly QueueClient _queueClient;
 
-      public Writer(QueueWriter queueWriter)
+      public Writer(QueueClient _queueClient)
       {
-         this.queueWriter = queueWriter;
+         this._queueClient = _queueClient;
       }
 
       public void WriteLock(DateTime time)
       {
-         queueWriter.SendActionMessage(timecalclib.Action.Lock, time);
+         _queueClient.SendActionMessage(timecalclib.Action.Lock, time);
       }
 
       public void WriteStart(DateTime time)
       {
-         queueWriter.SendActionMessage(timecalclib.Action.Start, time);
+         _queueClient.SendActionMessage(timecalclib.Action.Start, time);
       }
 
       public void WriteStop(DateTime time)
       {
-         queueWriter.SendActionMessage(timecalclib.Action.Stop, time);
+         _queueClient.SendActionMessage(timecalclib.Action.Stop, time);
       }
 
       public void WriteUnlock(DateTime time)
       {
-         queueWriter.SendActionMessage(timecalclib.Action.Unlock, time);
+         _queueClient.SendActionMessage(timecalclib.Action.Unlock, time);
       }
    }
 }

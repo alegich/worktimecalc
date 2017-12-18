@@ -37,11 +37,6 @@ namespace timecalclib
          return (long)AwayDuration().TotalMilliseconds;
       }
 
-      public long LunchMillis()
-      {
-         throw new NotImplementedException();
-      }
-
       public DateTime WorkEnded()
       {
          KeyValuePair<DateTime, string> lastRecord = records.Count > 0
@@ -126,6 +121,24 @@ namespace timecalclib
       protected List<KeyValuePair<DateTime, string>> GetRecords()
       {
          return records;
+      }
+
+      protected static List<KeyValuePair<DateTime, string>> ConvertFromStrings(List<string> source)
+      {
+         var retVal = new List<KeyValuePair<DateTime, string>>();
+
+         DataFormatter formatter = new DataFormatter();
+
+         foreach (string line in source)
+         {
+            int separator = line.LastIndexOf(" ", StringComparison.Ordinal);
+            string timePart = line.Substring(0, separator);
+            string action = line.Substring(separator).Trim();
+            DateTime time = formatter.ParseDateTime(timePart);
+            retVal.Add(new KeyValuePair<DateTime, string>(time, action));
+         }
+
+         return retVal;
       }
 
       protected KeyValuePair<DateTime, DateTime> Lunch()

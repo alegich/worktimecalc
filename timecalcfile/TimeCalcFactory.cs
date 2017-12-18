@@ -18,7 +18,7 @@ namespace timecalcfile
 
         public WeekReportable CreateWeekReporter(DateTime date)
         {
-            return new FileBasedWeekReporter(date, path);
+            return new FileBasedWeekReporter(path, date);
         }
 
         public Writable CreateWriter()

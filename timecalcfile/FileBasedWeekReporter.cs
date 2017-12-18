@@ -4,43 +4,18 @@ using timecalclib;
 
 namespace timecalcfile
 {
-   public class FileBasedWeekReporter : WeekReportable
+   public class FileBasedWeekReporter : WeekReporter
    {
-      private WeekReporter week;
-      public FileBasedWeekReporter(DateTime date, string folder)
+      public FileBasedWeekReporter(string folder, DateTime date)
       {
          List<Reportable> records = new List<Reportable>();
+
          for (int i = 0; i < SpentDaysCount(date); ++i)
          {
             records.Add(new FileBasedReporter(folder, StartOfWeek(date).AddDays(i)));
          }
 
-         week = new WeekReporter(records);
-      }
-
-   public TimeSpan TimeLeft()
-      {
-         return week.TimeLeft();
-      }
-
-      public TimeSpan TodaysBalance()
-      {
-         return week.TodaysBalance();
-      }
-
-      protected DateTime StartOfWeek(DateTime dt)
-      {
-         int diff = dt.DayOfWeek - DayOfWeek.Monday;
-         if (diff < 0)
-         {
-            diff += 7;
-         }
-         return dt.AddDays(-1 * diff).Date;
-      }
-
-      protected int SpentDaysCount(DateTime dt)
-      {
-         return dt.DayOfWeek - DayOfWeek.Monday + 1;
+         GetRecords().AddRange(records);
       }
    }
 }

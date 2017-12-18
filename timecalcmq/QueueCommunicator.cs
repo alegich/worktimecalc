@@ -10,7 +10,7 @@ namespace timecalcmq
 {
    class QueueCommunicator: IDisposable
    {
-      private IConnection connection;
+      private readonly IConnection connection;
 
       private readonly string queueName = "queue://timecalc.write";
 
@@ -30,14 +30,9 @@ namespace timecalcmq
          }
       }
 
-      public QueueWriter GetQueueWriter()
+      public QueueClient GetQueueClient()
       {
-         return new QueueWriter(connection, queueName);
-      }
-
-      public QueueReader GetQueueReader()
-      {
-         throw new NotImplementedException();
+         return new QueueClient(connection, queueName);
       }
 
       private void CleanUp()
