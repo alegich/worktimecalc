@@ -7,11 +7,11 @@ using timecalclib;
 
 namespace timecalcmq
 {
-   public class TimeCalcFactory : timecalclib.TimeCalcFactory
+   public class MessageBasedTimeCalcFactory : timecalclib.TimeCalcFactory
    {
       private readonly QueueCommunicator queueCommunicator;
 
-      public TimeCalcFactory()
+      public MessageBasedTimeCalcFactory()
       {
          queueCommunicator = new QueueCommunicator();
       }

@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using timecalclib;
 
 namespace timecalcfile
 {
-    public class TimeCalcFactory : timecalclib.TimeCalcFactory
+    public class FileBasedTimeCalcFactory : TimeCalcFactory
     {
         private readonly string path = @"D:\data\docs\time";
 

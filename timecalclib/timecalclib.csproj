@@ -42,7 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Action.cs" />
+    <Compile Include="TimeAction.cs" />
     <Compile Include="DataFormatter.cs" />
     <Compile Include="Measurable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

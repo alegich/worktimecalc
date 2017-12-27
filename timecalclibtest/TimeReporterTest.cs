@@ -20,14 +20,14 @@ namespace timecalclibtest
       public void TestLunchDuration()
       {
          TimeReporterSpy reporter = new TimeReporterSpy();
-         reporter.AddRecord(new DateTime(2017, 10, 03, 08, 00, 00, DateTimeKind.Utc), timecalclib.Action.Unlock);
-         reporter.AddRecord(new DateTime(2017, 10, 03, 09, 15, 00, DateTimeKind.Utc), timecalclib.Action.Lock);
-         reporter.AddRecord(new DateTime(2017, 10, 03, 09, 30, 00, DateTimeKind.Utc), timecalclib.Action.Unlock);
-         reporter.AddRecord(new DateTime(2017, 10, 03, 11, 00, 00, DateTimeKind.Utc), timecalclib.Action.Lock);
-         reporter.AddRecord(new DateTime(2017, 10, 03, 11, 14, 00, DateTimeKind.Utc), timecalclib.Action.Unlock);
-         reporter.AddRecord(new DateTime(2017, 10, 03, 12, 50, 00, DateTimeKind.Utc), timecalclib.Action.Lock);
-         reporter.AddRecord(new DateTime(2017, 10, 03, 13, 22, 00, DateTimeKind.Utc), timecalclib.Action.Unlock);
-         reporter.AddRecord(new DateTime(2017, 10, 03, 16, 00, 00, DateTimeKind.Utc), timecalclib.Action.Lock);
+         reporter.AddRecord(new DateTime(2017, 10, 03, 08, 00, 00, DateTimeKind.Utc), timecalclib.TimeAction.Unlock);
+         reporter.AddRecord(new DateTime(2017, 10, 03, 09, 15, 00, DateTimeKind.Utc), timecalclib.TimeAction.Lock);
+         reporter.AddRecord(new DateTime(2017, 10, 03, 09, 30, 00, DateTimeKind.Utc), timecalclib.TimeAction.Unlock);
+         reporter.AddRecord(new DateTime(2017, 10, 03, 11, 00, 00, DateTimeKind.Utc), timecalclib.TimeAction.Lock);
+         reporter.AddRecord(new DateTime(2017, 10, 03, 11, 14, 00, DateTimeKind.Utc), timecalclib.TimeAction.Unlock);
+         reporter.AddRecord(new DateTime(2017, 10, 03, 12, 50, 00, DateTimeKind.Utc), timecalclib.TimeAction.Lock);
+         reporter.AddRecord(new DateTime(2017, 10, 03, 13, 22, 00, DateTimeKind.Utc), timecalclib.TimeAction.Unlock);
+         reporter.AddRecord(new DateTime(2017, 10, 03, 16, 00, 00, DateTimeKind.Utc), timecalclib.TimeAction.Lock);
 
          Assert.AreEqual(new TimeSpan(0, 0, 32, 0), reporter.LunchDuration());
          Assert.AreEqual(new TimeSpan(0, 8, 0, 0), reporter.WorkDuration());

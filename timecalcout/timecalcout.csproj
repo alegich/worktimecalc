@@ -56,6 +56,10 @@
       <Project>{202AEDDC-6A17-40D7-9B63-497980CCA2FE}</Project>
       <Name>timecalclib</Name>
     </ProjectReference>
+    <ProjectReference Include="..\timecalcmq\timecalcmq.csproj">
+      <Project>{fa310857-043b-45f4-909d-698a6cb7b86b}</Project>
+      <Name>timecalcmq</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

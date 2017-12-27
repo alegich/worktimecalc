@@ -41,11 +41,11 @@ namespace timecalclib
       {
          KeyValuePair<DateTime, string> lastRecord = records.Count > 0
             ? records[records.Count - 1]
-            : new KeyValuePair<DateTime, string>(DateTime.MinValue, Action.Stop);
+            : new KeyValuePair<DateTime, string>(DateTime.MinValue, TimeAction.Stop);
 
-         if (!Action.IsAwayAction(lastRecord.Value))
+         if (!TimeAction.IsAwayAction(lastRecord.Value))
          {
-            lastRecord = new KeyValuePair<DateTime, string>(DateTime.UtcNow, Action.Stop);
+            lastRecord = new KeyValuePair<DateTime, string>(DateTime.UtcNow, TimeAction.Stop);
          }
 
          return lastRecord.Key;
@@ -74,12 +74,12 @@ namespace timecalclib
          Stack<KeyValuePair<DateTime, string>> events = new Stack<KeyValuePair<DateTime, string>>(records.Count);
          foreach (var record in records)
          {
-            if (Action.Lock.Equals(record.Value) || Action.Stop.Equals(record.Value))
+            if (TimeAction.Lock.Equals(record.Value) || TimeAction.Stop.Equals(record.Value))
             {
                // away started
                events.Push(record);
             }
-            else if (events.Any() && (Action.Start.Equals(record.Value) || Action.Unlock.Equals(record.Value)))
+            else if (events.Any() && (TimeAction.Start.Equals(record.Value) || TimeAction.Unlock.Equals(record.Value)))
             {
                // away stopped
                KeyValuePair<DateTime, string> awayStart = events.Pop();

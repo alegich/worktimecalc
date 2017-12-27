@@ -4,6 +4,6 @@ namespace MessageProcessing
 {
    public interface IRequestProcessor
    {
-      ProcessorOutcome Process(string request, Dictionary<string, string> properties);
+      ProcessorOutcome Process(string request, Dictionary<string, object> properties);
    }
 }

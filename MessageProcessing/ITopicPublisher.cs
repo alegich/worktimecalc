@@ -7,6 +7,6 @@ namespace MessageProcessing
 {
    public interface ITopicPublisher : IDisposable
    {
-      void Publish(string request);
+      void Publish(string request, Dictionary<string, object> properties);
    }
 }

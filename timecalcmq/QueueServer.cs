@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Apache.NMS;
+using Apache.NMS.ActiveMQ.Transport;
 using timecalclib;
 
 namespace timecalcmq
@@ -18,12 +19,15 @@ namespace timecalcmq
 
       private readonly string folder;
 
+      private Writable writer;
+
       private bool isDisposed;
 
-      public QueueServer(IConnection connection, string queueName, string folder)
+      public QueueServer(IConnection connection, string queueName, string folder, timecalclib.TimeCalcFactory factory)
       {
          this.connection = connection;
          this.folder = folder;
+         writer = factory.CreateWriter();
 
          session = connection.CreateSession(AcknowledgementMode.AutoAcknowledge);
 
@@ -31,26 +35,50 @@ namespace timecalcmq
          consumer = session.CreateConsumer(queue);
 
          consumer.Listener += OnMessage;
+
+         connection.Start();
       }
 
       private void OnMessage(IMessage message)
       {
-         ITextMessage textMessage = message as ITextMessage;
-         if (textMessage != null && "GET".Equals(textMessage.Text))
+         try
          {
+            ITextMessage textMessage = message as ITextMessage;
+
             DateTime day = new DateTime(message.Properties.GetLong("actionTime"));
-            DataFormatter formatter = new DataFormatter();
-            string fileName = folder + @"\" + formatter.FormatDate(day);
-            List<string> content = File.Exists(fileName) ? File.ReadAllLines(fileName).ToList() : new List<string>();
 
-            IMessage response = session.CreateMessage();
-            response.NMSCorrelationID = message.NMSCorrelationID;
-            response.Properties.SetList("DATA", content);
+            if (textMessage != null)
+            {
+               if ("GET".Equals(textMessage.Text))
+               {
+                  IMessage response = session.CreateObjectMessage(GetContent(day));
+                  response.NMSCorrelationID = message.NMSCorrelationID;
+                  IMessageProducer producer = session.CreateProducer();
+                  producer.Send(message.NMSReplyTo, response);
+               }
+               else if ("PUT".Equals(textMessage.Text))
+               {
+                  string action = textMessage.Properties.GetString("actionType");
 
-            IDestination dest = message.NMSReplyTo;
-            IMessageProducer producer = session.CreateProducer(dest);
-            producer.Send(response);
+                  if (TimeAction.Start.Equals(action)) writer.WriteStart(day);
+                  if (TimeAction.Stop.Equals(action)) writer.WriteStop(day);
+                  if (TimeAction.Lock.Equals(action)) writer.WriteLock(day);
+                  if (TimeAction.Unlock.Equals(action)) writer.WriteUnlock(day);
+               }
+            }
          }
+         catch (Exception e)
+         {
+            // log exception
+            e.ToString();
+         }
+      }
+
+      private List<string> GetContent(DateTime day)
+      {
+         DataFormatter formatter = new DataFormatter();
+         string fileName = folder + @"\" + formatter.FormatDate(day);
+         return File.Exists(fileName) ? File.ReadAllLines(fileName).ToList() : new List<string>();
       }
 
       public void Dispose()

@@ -24,7 +24,7 @@ namespace MessageProcessing.NMSActiveMQ
          producer.DeliveryMode = MsgDeliveryMode.Persistent;
       }
 
-      public void Publish(string request)
+      public void Publish(string request, Dictionary<string, object> properties)
       {
          IMessage message = producer.CreateTextMessage(request);
          foreach (string prop in messageProperties)

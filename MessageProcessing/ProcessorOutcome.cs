@@ -7,18 +7,18 @@ namespace MessageProcessing
 {
    public class ProcessorOutcome
    {
-      public ProcessorOutcome(bool result, List<string> childRequests)
+      public ProcessorOutcome(bool result, List<KeyValuePair<string, Dictionary<string, object>>> childRequests)
       {
          Result = result;
          ChildRequests = childRequests;
       }
 
-      public ProcessorOutcome() : this(false, new List<string>())
+      public ProcessorOutcome() : this(false, new List<KeyValuePair<string, Dictionary<string, object>>>())
       {
       }
 
       public bool Result { get; private set; }
 
-      public List<string> ChildRequests { get; private set; }
+      public List<KeyValuePair<string, Dictionary<string, object>>> ChildRequests { get; private set; }
    }
 }

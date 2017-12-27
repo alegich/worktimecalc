@@ -29,6 +29,7 @@ namespace timecalcmq
             IMessageProducer producer = session.CreateProducer(queue);
 
             ITextMessage message = producer.CreateTextMessage();
+            message.Text = "PUT";
             message.Properties.SetLong("actionTime", actionTime.Ticks);
             message.Properties.SetString("actionType", actionType);
 
@@ -38,9 +39,9 @@ namespace timecalcmq
          }
       }
 
-      public IList GetDayLog(DateTime date)
+      public List<string> GetDayLog(DateTime date)
       {
-         IList retVal;
+         List<string> retVal = null;
 
          using (ISession session = connection.CreateSession(AcknowledgementMode.AutoAcknowledge))
          {
@@ -52,14 +53,20 @@ namespace timecalcmq
             ITextMessage message = producer.CreateTextMessage();
             message.Text = "GET";
             message.Properties.SetLong("actionTime", date.Ticks);
+            message.NMSReplyTo = responseQueue;
+            message.NMSCorrelationID = responseQueue.QueueName;
             producer.Send(message);
             IMessage response = consumer.Receive(TimeSpan.FromSeconds(10));
-            retVal = response.Properties.GetList("DATA");
+            if (response != null && response is IObjectMessage)
+            {
+               object responseRaw = (response as IObjectMessage).Body;
+               retVal = (List<string>) responseRaw;
+            }
 
             session.Close();
          }
 
-         return retVal ?? new ArrayList();
+         return retVal ?? new List<string>();
       }
    }
 }

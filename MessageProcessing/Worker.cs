@@ -49,15 +49,16 @@ namespace MessageProcessing
          return retVal.Result;
       }
 
-      protected void SendChildRequests(List<string> childRequests)
+      protected void SendChildRequests(List<KeyValuePair<string, Dictionary<string, object>>> childRequests)
       {
          if (childRequests.Count > 0)
          {
             logger.Info(string.Format("Publishing {0} child request(s)", childRequests.Count));
          }
-         foreach (string request in childRequests)
+
+         foreach (KeyValuePair<string, Dictionary<string, object>> request in childRequests)
          {
-            publisher.Publish(request);
+            publisher.Publish(request.Key, request.Value);
          }
       }
 
@@ -67,6 +68,6 @@ namespace MessageProcessing
 
       protected abstract string GetMessageId();
 
-      protected abstract Dictionary<string, string> GetMessageProperties();
+      protected abstract Dictionary<string, object> GetMessageProperties();
    }
 }

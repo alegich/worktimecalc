@@ -22,6 +22,7 @@ namespace timecalcmq
          {
             IConnectionFactory factory = new NMSConnectionFactory(brokerUri);
             connection = factory.CreateConnection();
+            connection.Start();
          }
          catch (Exception)
          {
@@ -37,7 +38,7 @@ namespace timecalcmq
 
       private void CleanUp()
       {
-         connection.Dispose();
+         connection?.Dispose();
       }
 
       public void Dispose()

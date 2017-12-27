@@ -10,7 +10,7 @@ namespace timecalcmq
    {
       public MessageBasedReporter(QueueClient queueReader, DateTime day)
       {
-         List<string> content = ((IList<string>)queueReader.GetDayLog(day)).ToList();
+         List<string> content = queueReader.GetDayLog(day);
          GetRecords().AddRange(ConvertFromStrings(content));
       }
    }

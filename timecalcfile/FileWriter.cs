@@ -12,22 +12,22 @@ namespace timecalcfile
       }
       public void WriteStart(DateTime time)
       {
-         File.AppendAllText(GetTodaysFile(), FormatLine(time, timecalclib.Action.Start));
+         File.AppendAllText(GetTodaysFile(), FormatLine(time, timecalclib.TimeAction.Start));
       }
 
       public void WriteStop(DateTime time)
       {
-         File.AppendAllText(GetTodaysFile(), FormatLine(time, timecalclib.Action.Stop));
+         File.AppendAllText(GetTodaysFile(), FormatLine(time, timecalclib.TimeAction.Stop));
       }
 
       public void WriteLock(DateTime time)
       {
-         File.AppendAllText(GetTodaysFile(), FormatLine(time, timecalclib.Action.Lock));
+         File.AppendAllText(GetTodaysFile(), FormatLine(time, timecalclib.TimeAction.Lock));
       }
 
       public void WriteUnlock(DateTime time)
       {
-         File.AppendAllText(GetTodaysFile(), FormatLine(time, timecalclib.Action.Unlock));
+         File.AppendAllText(GetTodaysFile(), FormatLine(time, timecalclib.TimeAction.Unlock));
       }
 
       protected string GetTodaysFile()

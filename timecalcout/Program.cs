@@ -1,5 +1,6 @@
 ﻿using System;
 using timecalcfile;
+using timecalcmq;
 using timecalclib;
 
 namespace timecalcout
@@ -23,7 +24,8 @@ namespace timecalcout
       {
          DateTime date = args.Length > 0 ? (new DataFormatter()).ParseDate(args[0]) : DateTime.Now.Date;
 
-         timecalcfile.TimeCalcFactory factory = new timecalcfile.TimeCalcFactory();
+         //FileBasedTimeCalcFactory factory = new FileBasedTimeCalcFactory();
+         MessageBasedTimeCalcFactory factory = new MessageBasedTimeCalcFactory();
          Reportable reporter = factory.CreateReporter(date);
          Console.WriteLine("Work started: {0}", reporter.WorkStarted().ToLocalTime());
          Console.WriteLine("Work ended: {0}", reporter.WorkEnded().ToLocalTime());
@@ -35,10 +37,10 @@ namespace timecalcout
          Console.WriteLine("Whole time spent: {0}", reporter.WholeDayTime().FormatTimespan());
          Console.WriteLine("Work time: {0}", reporter.WorkDuration().FormatTimespan());
          Console.WriteLine("Away time: {0}", reporter.AwayDuration().FormatTimespan());
-
+         /*
          WeekReportable week = factory.CreateWeekReporter(date);
 
-         Console.WriteLine("Time left: {0}", week.TimeLeft().FormatTimespan());
+         Console.WriteLine("Time left: {0}", week.TimeLeft().FormatTimespan());*/
 
          Console.WriteLine("Lunch: {0} - {1} [{2}]", 
             reporter.LunchStarted().ToLocalTime().FormatTime(), reporter.LunchEnded().ToLocalTime().FormatTime(),

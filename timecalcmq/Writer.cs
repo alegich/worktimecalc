@@ -13,22 +13,22 @@ namespace timecalcmq
 
       public void WriteLock(DateTime time)
       {
-         _queueClient.SendActionMessage(timecalclib.Action.Lock, time);
+         _queueClient.SendActionMessage(timecalclib.TimeAction.Lock, time);
       }
 
       public void WriteStart(DateTime time)
       {
-         _queueClient.SendActionMessage(timecalclib.Action.Start, time);
+         _queueClient.SendActionMessage(timecalclib.TimeAction.Start, time);
       }
 
       public void WriteStop(DateTime time)
       {
-         _queueClient.SendActionMessage(timecalclib.Action.Stop, time);
+         _queueClient.SendActionMessage(timecalclib.TimeAction.Stop, time);
       }
 
       public void WriteUnlock(DateTime time)
       {
-         _queueClient.SendActionMessage(timecalclib.Action.Unlock, time);
+         _queueClient.SendActionMessage(timecalclib.TimeAction.Unlock, time);
       }
    }
 }

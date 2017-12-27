@@ -33,7 +33,7 @@ namespace timecalctray
       System.Timers.Timer timer = new System.Timers.Timer();
       int warningLevel = 0;
       MenuItem overtimeItem;
-      timecalcfile.TimeCalcFactory factory = new timecalcfile.TimeCalcFactory();
+      FileBasedTimeCalcFactory factory = new FileBasedTimeCalcFactory();
 
       public TimeCalcContext()
       {
@@ -66,7 +66,7 @@ namespace timecalctray
       private void OnTimerEvent(object sender, ElapsedEventArgs e)
       {
          TimeSpan timeLeft = TimeLeft();
-         string timeLeftFormatted = FormatTimespan(timeLeft);
+         string timeLeftFormatted = $"{FormatTimespan(timeLeft)}. Turn on engine!";
 
          if (timeLeft <= (new TimeSpan()))
          {

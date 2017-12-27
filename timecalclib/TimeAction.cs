@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace timecalclib
+﻿namespace timecalclib
 {
-   public class Action
+   public class TimeAction
    {
       public static readonly string Start = @"Start";
       public static readonly string Stop = @"Stop";

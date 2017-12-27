@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Linq;
-using System.ServiceProcess;
-using System.Text;
+﻿using System.ServiceProcess;
 using timecalcfile;
 using timecalclib;
 
@@ -17,7 +10,7 @@ namespace timecalc
       {
          InitializeComponent();
 
-            timecalcfile.TimeCalcFactory factory = new timecalcfile.TimeCalcFactory();
+            FileBasedTimeCalcFactory factory = new FileBasedTimeCalcFactory();
 
          measurer = new TimeMeasurer(factory.CreateWriter());
       }
