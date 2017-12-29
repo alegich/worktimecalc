@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using timecalcfile;
 using timecalcmq;
 using timecalclib;
@@ -20,12 +21,23 @@ namespace timecalcout
    }
    class Program
    {
+      static TimeCalcFactory GetFactory(string[] args)
+      {
+         if (args.Contains("message"))
+         {
+            return new MessageBasedTimeCalcFactory();
+         }
+         else
+         {
+            return new FileBasedTimeCalcFactory();
+         }
+      }
       static void Main(string[] args)
       {
          DateTime date = args.Length > 0 ? (new DataFormatter()).ParseDate(args[0]) : DateTime.Now.Date;
 
          //FileBasedTimeCalcFactory factory = new FileBasedTimeCalcFactory();
-         MessageBasedTimeCalcFactory factory = new MessageBasedTimeCalcFactory();
+         TimeCalcFactory factory = GetFactory(args);
          Reportable reporter = factory.CreateReporter(date);
          Console.WriteLine("Work started: {0}", reporter.WorkStarted().ToLocalTime());
          Console.WriteLine("Work ended: {0}", reporter.WorkEnded().ToLocalTime());
