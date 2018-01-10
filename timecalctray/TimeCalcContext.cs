@@ -56,7 +56,7 @@ namespace timecalctray
 
       string FormatTimespan(TimeSpan value)
       {
-         string format = value.Hours > 0 ? @"{0} h, {1} min" : @"{1} min, {2} sec";
+         string format = Math.Abs(value.Hours) > 0 ? @"{0} h, {1} min" : @"{1} min, {2} sec";
          format = (value < TimeSpan.Zero ? @"-" : string.Empty) + format;
          TimeSpan duration = value.Duration();
          return string.Format(format, duration.Hours, duration.Minutes, duration.Seconds);
